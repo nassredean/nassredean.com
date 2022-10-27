@@ -1,1 +1,0 @@
-{"mappings":"AAAA;;;;AAIA;;;;;AAKA;;;;;AAKA","sources":["src/css/style.css"],"sourcesContent":["body {\n    overscroll-behavior: none;\n}\n\n* {\n    margin: 0;\n    padding: 0;\n}\n\n#container {\n    width: 100vw;\n    height: 100vh;\n}\n\ncanvas {\n    display: block;\n}"],"names":[],"version":3,"file":"index.c92073ef.css.map","sourceRoot":"/__parcel_source_root/"}

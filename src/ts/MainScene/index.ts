@@ -11,6 +11,7 @@ export class MainScene {
 	scene: THREE.Scene;
 	camera: THREE.PerspectiveCamera;
 	background: Background;
+	sphere: THREE.Mesh;
 	// time: number;
 	// commonUniforms: Uniforms;
 
@@ -45,19 +46,11 @@ export class MainScene {
 			this.camera.updateProjectionMatrix();
 			this.scene.add(this.camera);
 
-			let backgroundMesh = gltf.scene.getObjectByName('BackgroundPlane') as THREE.Mesh;
-			this.background = new Background(backgroundMesh);
+			let backgroundGeo = new THREE.PlaneGeometry(20, 20);
+			let backgroundMesh = new THREE.Mesh(backgroundGeo);
+			backgroundMesh.rotateZ(-90 * Math.PI / 180)
+			this.background = new Background(backgroundMesh, THREE.FrontSide);
 			this.scene.add(this.background);
-
-			// console.log(gltf.scene.children)
-
-			// const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-			// this.scene.add(directionalLight);
-
-			// const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-			// const material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-			// const cube = new THREE.Mesh( geometry, material );
-			// this.scene.add(cube)
 
 		});
 	}

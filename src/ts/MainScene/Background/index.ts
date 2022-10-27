@@ -9,7 +9,7 @@ export default class Background extends THREE.Object3D {
 
     uniforms: Uniforms;
 
-	constructor( mesh: THREE.Mesh ) {
+	constructor( mesh: THREE.Mesh, side: THREE.Side ) {
         super();
 
 		this.uniforms = {
