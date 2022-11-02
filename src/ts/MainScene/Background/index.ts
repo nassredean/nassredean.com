@@ -22,6 +22,7 @@ export default class Background extends THREE.Object3D {
 			vertexShader: bgVert,
 			fragmentShader: bgFrag,
 			uniforms: this.uniforms,
+			side: side,
 		} );
 
         mesh.material = mat;
