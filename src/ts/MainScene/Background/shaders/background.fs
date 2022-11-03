@@ -32,6 +32,12 @@ void main()
     vec2 p = vPosition.xy / vec2(6., 6.);
 
     vec2 fld = field(p);
-    vec3 col = sin(vec3(-.3,0.1,0.5)+fld.x-fld.y)*0.65+0.35;
-	gl_FragColor = vec4(col,1.0);
+    float fs = sin(fld.x - fld.y) / 2. + .5;
+    vec3 baseFirst = vec3(0.,0.475,0.949);
+    vec3 accent = vec3(0., 0., 0.);
+    vec3 baseSecond = vec3(0.,0.149,0.298);
+    vec3 baseColor = mix(baseFirst,baseSecond,fs);
+    vec3 secondBaseColor = mix(baseColor,accent,fs);
+
+	gl_FragColor = vec4(secondBaseColor,1.0);
 }

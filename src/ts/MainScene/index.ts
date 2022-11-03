@@ -12,8 +12,6 @@ export class MainScene {
 	scene: THREE.Scene;
 	camera: THREE.PerspectiveCamera;
 	background: Background;
-	// pmremGenerator: THREE.PMREMGenerator;
-	// generatedCubeRenderTarget: THREE.WebGLRenderTarget;
 	cubeRenderTarget: THREE.WebGLCubeRenderTarget;
 	sphere: THREE.Mesh;
 	controls: OrbitControls;
@@ -72,7 +70,7 @@ export class MainScene {
 			this.background = new Background(backgroundMesh, side);
 			this.scene.add(this.background);
 
-			let sphereGeo = new THREE.IcosahedronGeometry(2, 8);
+			let sphereGeo = new THREE.SphereGeometry(2);
 			let sphereMaterial = new THREE.MeshStandardMaterial({
 				envMap: this.cubeRenderTarget.texture,
 				color: 0xffffff,
