@@ -1,37 +1,35 @@
-import * as THREE from 'three';
+import * as THREE from 'three'
 
-import bgVert from './shaders/background.vs';
-import bgFrag from './shaders/background.fs';
+import bgVert from './shaders/background.vs'
+import bgFrag from './shaders/background.fs'
 
-export interface Uniforms{ [ key: string ] : THREE.IUniform }
+export interface Uniforms { [ key: string ]: THREE.IUniform }
 
 export default class Background extends THREE.Object3D {
+  uniforms: Uniforms
 
-    uniforms: Uniforms;
+  constructor (mesh: THREE.Mesh, side: THREE.Side) {
+    super()
 
-	constructor( mesh: THREE.Mesh, side: THREE.Side ) {
-        super();
+    this.uniforms = {
+      time: {
+        value: 0
+      }
+    }
 
-		this.uniforms = {
-            time: {
-                value: 0
-            }
-        };
+    const mat = new THREE.ShaderMaterial({
+      vertexShader: bgVert,
+      fragmentShader: bgFrag,
+      uniforms: this.uniforms,
+      side
+    })
 
-		let mat = new THREE.ShaderMaterial( {
-			vertexShader: bgVert,
-			fragmentShader: bgFrag,
-			uniforms: this.uniforms,
-			side: side,
-		} );
+    mesh.material = mat
 
-        mesh.material = mat;
+    this.add(mesh)
+  }
 
-        this.add(mesh);
-	}
-
-	public update(deltaTime: number) {
-		this.uniforms.time.value += deltaTime;
-	}
-
+  public update (deltaTime: number): void {
+    (this.uniforms.time.value as number) += deltaTime
+  }
 }

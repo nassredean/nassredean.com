@@ -18,7 +18,12 @@
     "@babel/core": "^7.19.6",
     "@parcel/transformer-glsl": "^2.0.0",
     "@types/three": "^0.144.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
     "eslint": "^8.26.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.4.0",
+    "eslint-plugin-promise": "^6.1.1",
     "parcel": "^2.0.0",
     "typescript": "^4.8.4"
   },
