@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Background from './Background'
+import { Transparent } from './Transparents'
 import MainSceneGLB from '../../assets/scenes/MainScene.glb'
 
 export class MainScene {
@@ -12,10 +13,10 @@ export class MainScene {
   scene: THREE.Scene
   camera: THREE.PerspectiveCamera
   background: Background | undefined
-  cubeRenderTarget: THREE.WebGLCubeRenderTarget
-  sphere: THREE.Mesh | undefined
+  cubeRenderTarget: THREE.WebGLCubeRenderTarget | undefined
+  sphere: Transparent | undefined
   controls: OrbitControls | undefined
-  cubeCamera: THREE.CubeCamera
+  cubeCamera: THREE.CubeCamera | undefined
   // time: number;
   // commonUniforms: Uniforms;
 
@@ -27,10 +28,6 @@ export class MainScene {
     this.container.appendChild(this.renderer.domElement)
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera()
-
-    this.cubeRenderTarget = new THREE.WebGLCubeRenderTarget(256)
-    this.cubeRenderTarget.texture.type = THREE.HalfFloatType
-    this.cubeCamera = new THREE.CubeCamera(1, 1000, this.cubeRenderTarget)
 
     this.initRenderer()
     this.initScene()
@@ -45,6 +42,14 @@ export class MainScene {
     this.renderer.physicallyCorrectLights = true
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping
     this.renderer.outputEncoding = THREE.sRGBEncoding
+
+    this.cubeRenderTarget = new THREE.WebGLCubeRenderTarget(1024, {
+      format: THREE.RGBAFormat,
+      generateMipmaps: true,
+      minFilter: THREE.LinearMipMapLinearFilter,
+      encoding: THREE.sRGBEncoding
+    })
+    this.cubeCamera = new THREE.CubeCamera(0.1, 1000, this.cubeRenderTarget)
   }
 
   private initScene (): void {
@@ -69,14 +74,9 @@ export class MainScene {
       this.background = new Background(backgroundMesh, side)
       this.scene.add(this.background)
 
-      const sphereGeo = new THREE.SphereGeometry(2)
-      const sphereMaterial = new THREE.MeshStandardMaterial({
-        envMap: this.cubeRenderTarget.texture,
-        color: 0xffffff,
-        metalness: 0,
-        roughness: 0
-      })
-      this.sphere = new THREE.Mesh(sphereGeo, sphereMaterial)
+      const sphereGeo = new THREE.SphereGeometry(2, 32, 32)
+      const sphereMesh = new THREE.Mesh(sphereGeo)
+      this.sphere = new Transparent(sphereMesh, this.cubeRenderTarget.texture)
       this.scene.add(this.sphere)
     })
   }
@@ -94,7 +94,14 @@ export class MainScene {
       this.controls.update()
     }
 
-    this.cubeCamera.update(this.renderer, this.scene)
+    if (this.sphere != null) {
+      this.sphere.visible = false
+      this.cubeCamera.update(this.renderer, this.scene)
+      this.sphere.visible = true
+      this.sphere.update(deltaTime, this.cubeRenderTarget.texture)
+    } else {
+      this.cubeCamera.update(this.renderer, this.scene)
+    }
   }
 
   private onResize (): void {
