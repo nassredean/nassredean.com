@@ -1,9 +1,7 @@
 import * as THREE from 'three'
-
+import { Uniforms } from './global/types.ts'
 import bgVert from './shaders/background.vs'
 import bgFrag from './shaders/background.fs'
-
-export interface Uniforms { [ key: string ]: THREE.IUniform }
 
 export default class Background extends THREE.Object3D {
   uniforms: Uniforms
