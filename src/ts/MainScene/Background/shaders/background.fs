@@ -33,11 +33,12 @@ void main()
 
     vec2 fld = field(p);
     float fs = sin(fld.x - fld.y) / 2. + .5;
-    vec3 baseFirst = vec3(0.,0.475,0.949);
-    vec3 accent = vec3(0., 0., 0.);
-    vec3 baseSecond = vec3(0.,0.149,0.298);
-    vec3 baseColor = mix(baseFirst,baseSecond,fs);
-    vec3 secondBaseColor = mix(baseColor,accent,fs);
+    // vec3 baseFirst = vec3(0.,0.475,0.949);
+    // vec3 accent = vec3(0., 0., 0.);
+    // vec3 baseSecond = vec3(0.,0.149,0.298);
+    // vec3 baseColor = mix(baseFirst,baseSecond,fs);
+    // vec3 secondBaseColor = mix(baseColor,accent,fs);
 
-	gl_FragColor = vec4(secondBaseColor,1.0);
+	gl_FragColor = vec4(vec3(pow(fs, 6.0)),1.0);
+	// gl_FragColor = vec4(secondBaseColor,1.0);
 }

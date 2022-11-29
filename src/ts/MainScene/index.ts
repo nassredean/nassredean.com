@@ -1,9 +1,7 @@
 import * as THREE from 'three'
-import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Background from './Background'
 import { Transparent } from './Transparents'
-import MainSceneGLB from '../../assets/scenes/MainScene.glb'
 
 export class MainScene {
   sceneName: string
@@ -53,39 +51,37 @@ export class MainScene {
   }
 
   private initScene (): void {
-    const gltfLoader = new GLTFLoader()
-    gltfLoader.load(MainSceneGLB, (gltf: GLTF) => {
-      this.camera = gltf.scene.getObjectByName('MainCamera_1') as THREE.PerspectiveCamera
-      this.camera.aspect = this.container.offsetWidth / this.container.offsetHeight
-      this.camera.updateProjectionMatrix()
-      this.camera.position.z = 20
-      this.scene.add(this.camera)
+    this.camera = new THREE.PerspectiveCamera()
+    this.camera.aspect = this.container.offsetWidth / this.container.offsetHeight
+    this.camera.updateProjectionMatrix()
+    this.camera.position.set(-2.414321553721531, -0.7123287292714132, 3.389950978023759)
+    this.camera.setRotationFromEuler(new THREE.Euler(-0.025376552251296477, -0.006851764752668625, -0.00017391013657926146, 'XYZ'))
+    this.scene.add(this.camera)
 
-      if (this.controls == null) {
-        this.controls = new OrbitControls(this.camera, this.renderer.domElement)
-        this.camera.position.set(0, 0, 17.5)
-        this.controls.update()
-      }
+    // if (this.controls == null) {
+    //   this.controls = new OrbitControls(this.camera, this.renderer.domElement)
+    //   // this.camera.position.set(0, 0, 17.5)
+    //   this.controls.update()
+    // }
 
-      const backgroundGeo = new THREE.SphereGeometry(100, 32, 32)
-      const backgroundMesh = new THREE.Mesh(backgroundGeo)
-      const side = THREE.BackSide
+    const backgroundGeo = new THREE.SphereGeometry(100, 32, 32)
+    const backgroundMesh = new THREE.Mesh(backgroundGeo)
+    const side = THREE.BackSide
 
-      this.background = new Background(backgroundMesh, side)
-      this.scene.add(this.background)
+    this.background = new Background(backgroundMesh, side)
+    this.scene.add(this.background)
 
-      const sphereGeo = new THREE.SphereGeometry(2, 32, 32)
-      const sphereMesh = new THREE.Mesh(sphereGeo)
-      this.sphere = new Transparent(sphereMesh, this.cubeRenderTarget.texture)
-      this.scene.add(this.sphere)
-    })
+    const sphereGeo = new THREE.SphereGeometry(2, 32, 32)
+    const sphereMesh = new THREE.Mesh(sphereGeo)
+    this.sphere = new Transparent(sphereMesh, this.cubeRenderTarget.texture)
+    this.scene.add(this.sphere)
   }
 
-  private setupResizeListener (): void {
+  private setupResizeListener(): void {
     window.addEventListener('resize', this.onResize.bind(this))
   }
 
-  public update (deltaTime: number): void {
+  public update(deltaTime: number): void {
     if (this.background != null) {
       this.background.update(deltaTime)
     }
@@ -94,19 +90,21 @@ export class MainScene {
       this.controls.update()
     }
 
-    if (this.sphere != null) {
+    if (this.sphere != null && this.cubeCamera != null && this.cubeRenderTarget != null) {
       this.sphere.visible = false
       this.cubeCamera.update(this.renderer, this.scene)
       this.sphere.visible = true
       this.sphere.update(deltaTime, this.cubeRenderTarget.texture)
-    } else {
+    } else if (this.cubeCamera != null) {
       this.cubeCamera.update(this.renderer, this.scene)
     }
   }
 
-  private onResize (): void {
+  private onResize(): void {
     const canvasWidth = this.container.offsetWidth
     const canvasHeight = this.container.offsetHeight
+
+    console.log('resizing')
 
     this.renderer.setSize(canvasWidth, canvasHeight)
     this.renderer.setPixelRatio(window.devicePixelRatio)
@@ -115,7 +113,7 @@ export class MainScene {
     this.camera.updateProjectionMatrix()
   }
 
-  private tick (): void {
+  private tick(): void {
     requestAnimationFrame(this.tick.bind(this))
 
     const deltaTime = this.clock.getDelta()
