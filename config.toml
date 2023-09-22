@@ -13,6 +13,9 @@ ignoreErrors = ["error-remote-getjson"]
 [params]
   copyright = "© nassredean"
 
+  [params.logo]
+    name = "nassredean"
+
   [[params.socialIcons]]
     name = "github"
     title = "My github"
