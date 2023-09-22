@@ -1,27 +1,27 @@
 <nav class="w:full h:90 fixed bg:fade-84/.95@dark bg:white z:1000">
-    <div class="
-        h:full
-        w:full
-        max-w:1200
-        mx:auto
-        px:32
-        d:flex
-        align-items:center
-    ">
-        <div>
-            <a href="/" class="mr-3 font:extralight">
-                <img src="/images/logo.png" alt="Nassredean Nasseri" style="width: 64px; height: auto;"/>
-            </a>
-        </div>
+  <div class="
+              h:full
+              w:full
+              max-w:1200
+              mx:auto
+              px:32
+              d:flex
+              align-items:center
+              ">
+    <div>
+      <a href="/" class="mr-3 font:extralight">
+        <img src="/images/logo.png" alt="Nassredean Nasseri" style="width: 64px; height: auto;"/>
+      </a>
+    </div>
 
-        <div class="ml:auto">
-            {{ $currentPage := . }}
-            {{ $active := "" }}
-            {{ range .Site.Menus.main }}
-            {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
-            {{ $active = "active" }}
-            {{ end }}
-            <a class="
+    <div class="ml:auto">
+      {{ $currentPage := . }}
+      {{ $active := "" }}
+      {{ range .Site.Menus.main }}
+      {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
+      {{ $active = "active" }}
+      {{ end }}
+      <a class="
                 font:semibold
                 font:fade
                 font:fade-10:hover
@@ -29,10 +29,10 @@
                 px:8
                 transition:150ms;ease-in
                 {{ $active }}
-            " href="{{ .URL }}" title="{{ .Title }}">
-                {{- .Name -}}
-            </a>
-            {{ end }}
-        </div>
+                " href="{{ .URL }}" title="{{ .Title }}">
+        {{- .Name -}}
+      </a>
+      {{ end }}
     </div>
+  </div>
 </nav>

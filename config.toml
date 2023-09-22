@@ -13,6 +13,22 @@ ignoreErrors = ["error-remote-getjson"]
 [params]
   copyright = "© nassredean"
 
+  [[params.socialIcons]]
+    name = "github"
+    title = "My github"
+    url = "https://github.com/nassredean"
+  
+  [[params.socialIcons]]
+    name = "linkedin"
+    title = "My LinkedIn"
+    url = "https://www.linkedin.com/in/nassredean-nasseri-134521232/"
+
+  [[params.socialIcons]]
+    name = "instagram"
+    title = "My art"
+    url = "https://www.instagram.com/nassredean.art/"
+
+
 [menu]
 
   [[menu.main]]

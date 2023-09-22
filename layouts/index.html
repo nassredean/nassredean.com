@@ -1,7 +1,7 @@
 {{ define "main" }}
 
 <article class="box:border-box pt:32">
-<div class="d:flex flex:col">
+  <div class="d:flex flex:col">
     {{- partial "prose.html" . -}}
 
     <header class="mb:32">
@@ -13,6 +13,6 @@
 
     {{- partial "li.html" ( dict "url" .Permalink "title" .Title "subTitle" (.Date | time.Format (":date_medium")) ) -}}
     {{- end -}}
-</div>
+  </div>
 </article>
 {{ end }}
