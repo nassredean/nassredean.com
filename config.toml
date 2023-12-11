@@ -3,13 +3,14 @@ title = "Nassredean Nasseri"
 author = "Nassredean Nasseri"
 copyright = "Copyright © 2023, Nassredean Nasseri; all rights reserved."
 paginate = 3
-languageCode = "en"
-DefaultContentLanguage = "en"
+languageCode = "en-us"
+DefaultContentLanguage = "en-us"
 enableInlineShortcodes = true
 canonifyURLs = true
 # prevent build failures when using Hugo's Instagram shortcode due to deprecated Instagram API.
 # See https://github.com/gohugoio/hugo/issues/7228#issuecomment-714490456
 ignoreErrors = ["error-remote-getjson"]
+rssLimit = 20
 
 [params]
   copyright = "© nassredean"
@@ -31,6 +32,11 @@ ignoreErrors = ["error-remote-getjson"]
     name = "instagram"
     title = "My art"
     url = "https://www.instagram.com/nassredean.art/"
+
+  [[params.socialIcons]]
+    name = "rss"
+    title = "RSS feed"
+    url = "https://www.nassredean.com/index.xml/"
 
 
 [menu]

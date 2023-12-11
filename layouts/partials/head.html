@@ -16,6 +16,9 @@
 
   <link href="https://unpkg.com/@master/normal.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ "css/styles.css" | absURL }}">
+  {{ range .AlternativeOutputFormats -}}
+  {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+  {{ end -}}
 
   <script src="https://unpkg.com/@master/style@1.5.0"></script>
   <script src="https://unpkg.com/@master/styles@1.13.0"></script>
