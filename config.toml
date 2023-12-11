@@ -36,7 +36,7 @@ rssLimit = 20
   [[params.socialIcons]]
     name = "rss"
     title = "RSS feed"
-    url = "https://www.nassredean.com/index.xml/"
+    url = "https://www.nassredean.com/index.xml"
 
 
 [menu]
