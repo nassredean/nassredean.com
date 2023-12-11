@@ -14,5 +14,5 @@ My professional experience is mostly in Ruby and Ruby on Rails, but I have a bro
 I have created a [ruby REPL](https://github.com/nassredean/fir), and a guide to [using Rails as an API](https://github.com/nassredean/rails5-api-guide).
 
 I make [algorithmic art](https://www.instagram.com/nassredean.art) using techniques from computer graphics and computational geometry.
-Following a six-month stint at my most recent company, I unfortunately found myself impacted by a series of layoffs triggered by the company's acquisition.
-I am currently traveling and working on passion projects while I decide what my next step is.
+
+I currently work at [LeaseQuery](https://leasequery.com/) where I am helping build and scale their StackShine platform.
