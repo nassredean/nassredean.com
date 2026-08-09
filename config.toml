@@ -15,7 +15,7 @@ rssLimit = 20
   pagerSize = 3
 
 [params]
-  copyright = "© nassredean"
+  copyright = "© Nassredean Nasseri"
 
   [params.logo]
     name = "nassredean"
@@ -31,18 +31,16 @@ rssLimit = 20
     url = "https://www.linkedin.com/in/nassredean-nasseri-134521232/"
 
   [[params.socialIcons]]
+    name = "email"
+    title = "Email me"
+    user = "nassredean"
+    domain = "gmail.com"
+
+  [[params.socialIcons]]
     name = "rss"
     title = "RSS feed"
     url = "https://www.nassredean.com/index.xml"
 
-
-[menu]
-
-  [[menu.main]]
-    identifier = "about"
-    name = "About"
-    url = "/about/"
-    weight = 10
 
 [taxonomies]
 category = "categories"

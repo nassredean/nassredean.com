@@ -1,8 +1,12 @@
 {{ define "main" }}
 <div>
-  <article class="box:border-box pt:32 w:full">
+  <article class="box:border-box w:full">
     <header class="mb:32">
-      <div class="font:40 font:extrabold">{{ .Title }}</div>
+      <div class="mobile-only-header">
+        {{ partial "mobile_avatar.html" . }}
+        <img class="site-heading-svg" src="/svg/header-nassredean-nasseri-lowercase.svg" alt="nassredean nasseri" />
+      </div>
+      <div class="post-title font:40 font:extrabold">{{ .Title }}</div>
     </header>
     {{- partial "prose.html" . -}}
   </article>

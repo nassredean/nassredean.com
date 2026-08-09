@@ -3,16 +3,41 @@
   {{- partial "head.html" . -}}
 
   <body class="bg:fade-84@dark font:fade-16@dark font:sans">
-    {{ partial "header.html" . -}}
-    <div class="d:flex flex:column@<=sm pt:90 px:24 jc:center gap:44 word-break:break-word">
-      {{- block "side" . }}{{- end }}
+    <div class="page-layout word-break:break-word">
+      {{- block "side" . }}
+      <aside class="sidebar">
+        <a class="sidebar-avatar-link" href="/">
+          <img class="sidebar-avatar" src="/images/avatar.png" width="128" height="128" alt="Portrait of Nassredean Nasseri" />
+        </a>
+        <div class="sidebar-bio">
+          <p>I am a software engineer living in Brooklyn, NY.</p>
+          <p>I currently work at <a href="https://www.metal.ai/">Metal.ai</a>.</p>
+        </div>
+        {{ partial "social_icons.html" site.Params.socialIcons }}
+      </aside>
+      {{- end }}
       <div class="max-w:700 w:full box:content-box">
         {{- block "main" . }}{{- end }}
-        {{ partial "social_icons.html" site.Params.socialIcons }}
+
+        <div class="mobile-social-icons">
+          {{ partial "social_icons.html" site.Params.socialIcons }}
+        </div>
 
         {{- partial "footer.html" . -}}
       </div>
     </div>
+
+    <script>
+      document.querySelectorAll(".js-email-link").forEach(function (el) {
+        el.addEventListener("click", function () {
+          var user = el.getAttribute("data-user");
+          var domain = el.getAttribute("data-domain");
+          if (user && domain) {
+            el.href = "mailto:" + user + "@" + domain;
+          }
+        });
+      });
+    </script>
   </body>
 
 </html>

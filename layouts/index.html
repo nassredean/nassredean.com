@@ -1,10 +1,11 @@
 {{ define "main" }}
 
-<article class="box:border-box pt:32">
+<article class="box:border-box">
   <div class="d:flex flex:col">
     {{- partial "prose.html" . -}}
 
-    <header class="mb:32">
+    <header class="mb:32 mobile-site-header">
+      {{ partial "mobile_avatar.html" . }}
       <img class="site-heading-svg" src="/svg/header-nassredean-nasseri-lowercase.svg" alt="nassredean nasseri" />
     </header>
 
