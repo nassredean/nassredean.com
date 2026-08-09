@@ -2,7 +2,6 @@ baseURL = "https://www.nassredean.com/"
 title = "Nassredean Nasseri"
 author = "Nassredean Nasseri"
 copyright = "Copyright © 2023, Nassredean Nasseri; all rights reserved."
-paginate = 3
 languageCode = "en-us"
 DefaultContentLanguage = "en-us"
 enableInlineShortcodes = true
@@ -11,6 +10,9 @@ canonifyURLs = true
 # See https://github.com/gohugoio/hugo/issues/7228#issuecomment-714490456
 ignoreErrors = ["error-remote-getjson"]
 rssLimit = 20
+
+[pagination]
+  pagerSize = 3
 
 [params]
   copyright = "© nassredean"
@@ -27,11 +29,6 @@ rssLimit = 20
     name = "linkedin"
     title = "My LinkedIn"
     url = "https://www.linkedin.com/in/nassredean-nasseri-134521232/"
-
-  [[params.socialIcons]]
-    name = "instagram"
-    title = "My art"
-    url = "https://www.instagram.com/nassredean.art/"
 
   [[params.socialIcons]]
     name = "rss"

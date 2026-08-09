@@ -1,5 +1,48 @@
 :root {
   --font-sans: "Inter var", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  --cream-base: 254, 252, 245;
+  --cream-mantle: 254, 251, 241;
+  --accent-blue: 72, 116, 153;
+  --accent-blue-dark: 139, 168, 196;
+  --neutral-black: 13, 10, 6;
+}
+
+body {
+  background-color: rgb(var(--cream-base)) !important;
+}
+
+nav.fixed {
+  background-color: rgba(var(--cream-mantle), 0.95) !important;
+}
+
+a {
+  color: rgb(var(--accent-blue)) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  a {
+    color: rgb(var(--accent-blue-dark)) !important;
+  }
+}
+
+.social-icons a {
+  color: inherit !important;
+}
+
+.site-heading,
+.title-link,
+nav.fixed a {
+  color: rgb(var(--neutral-black)) !important;
+}
+
+.title-link:hover {
+  color: rgb(var(--accent-blue)) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .title-link:hover {
+    color: rgb(var(--accent-blue-dark)) !important;
+  }
 }
 
 .social-icons {
