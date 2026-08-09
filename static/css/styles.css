@@ -29,10 +29,16 @@ a {
   color: inherit !important;
 }
 
-.site-heading,
 .title-link,
 nav.fixed a {
   color: rgb(var(--neutral-black)) !important;
+}
+
+.site-heading-svg {
+  display: block;
+  width: 280px;
+  max-width: 100%;
+  height: auto;
 }
 
 .title-link:hover {
