@@ -3,7 +3,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <title>{{ if not .IsHome }}{{ .Title }} - {{ end }}{{ site.Title }}</title>
+  <title>{{ if .IsHome }}{{ site.Title }}{{ else if eq .Kind "404" }}Page not found - {{ site.Title }}{{ else }}{{ .Title }} - {{ site.Title }}{{ end }}</title>
 
   <!-- Meta -->
   {{ if eq .Kind "page" }}
@@ -26,5 +26,9 @@
   <script src="https://unpkg.com/themes.js"></script>
   <script>window.themes = window.themes || new window.Themes()</script>
 
+  {{ if eq .Kind "404" -}}
+  <!-- Group missing URLs under a "404:" prefix. Must precede count.js, which loads async. -->
+  <script>window.goatcounter = { path: function (p) { return '404: ' + p } }</script>
+  {{ end -}}
   <script data-goatcounter="https://nassredean.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
