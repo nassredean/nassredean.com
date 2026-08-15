@@ -1,0 +1,19 @@
+{{ define "main" }}
+<article class="box:border-box">
+  <header class="mb:32">
+    <div class="mobile-only-header">
+      {{ partial "mobile_avatar.html" . }}
+      <img class="site-heading-svg" src="/svg/header-nassredean-nasseri-lowercase.svg" alt="nassredean nasseri" />
+    </div>
+    <div class="post-title font:40 font:extrabold">Page not found</div>
+  </header>
+  <div class="_:where(a):hover{text-decoration-color:fade}
+       _:where(a){text-decoration:2;underline;fade-10;_text-decoration-color:fade-70@dark}
+       _:where(p){font:fade-76;_font:16;_line-height:1.65;_font:fade-34@dark}
+       _:where(a){font:semibold;_font:medium@dark}
+       ">
+    <p>There is nothing at this address. The page may have moved, or the link may be wrong.</p>
+    <p><a href="/">Go back home</a></p>
+  </div>
+</article>
+{{ end }}

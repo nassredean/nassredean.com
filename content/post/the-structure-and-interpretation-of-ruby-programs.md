@@ -31,7 +31,7 @@ Math.new.add(1, 2)
 
 Whenever you run a ruby program, ruby steps through the characters in the program one at a time and groups them into special words called “tokens”. These tokens are not guaranteed to be valid Ruby. At this point the stream of tokens could be invalid. It is the responsibility of the parser to determine whether the inputted program is valid or not.
 
-We can actually see how Ruby’s tokenization would treat this program using the built in tool ‘ripper’. Lets take a look at how the definition of the add method is tokenized using the following code:
+We can actually see how Ruby’s tokenization would treat this program using the built in tool ‘ripper’. Let’s take a look at how the definition of the add method is tokenized using the following code:
 
 ```ruby
 require 'ripper'
@@ -121,7 +121,7 @@ Output:
     nil]]]]
 ```
 
-This output is a bit terse, so I’ve included a visual reprsenation of the AST below. Each node in the tree represents a construct in the program. For instance, the addition of the identifier’s x and y is represented by a “binary” node. A binary node encodes an operation that performs on two elements of a set to derive a third element.
+This output is a bit terse, so I’ve included a visual representation of the AST below. Each node in the tree represents a construct in the program. For instance, the addition of the identifier’s x and y is represented by a “binary” node. A binary node encodes an operation that performs on two elements of a set to derive a third element.
 
 
 ![The structure of the AST](/images/the-structure-and-interpretation-of-ruby-programs-img-3.webp)
@@ -165,8 +165,8 @@ local table (size: 2, argc: 2 [opts: 0, rest: -1, post: 0, block: -1, kw: -1@-1,
 0013 leave                                                            (   2)
 ```
 
-YARV is a stack oriented virtual machine, so most of the instructions invlove putting an object onto the stack, and then executing an operation against the values on the stack. The top block of instructions are used to define the “add” method. Essentially the instructions put the method name on the stack, and then calls “define_method” a C function that is used by YARV to create a new ruby method. In the second block, a local table is defined which represent the arguments our function can accept.
+YARV is a stack oriented virtual machine, so most of the instructions involve putting an object onto the stack, and then executing an operation against the values on the stack. The top block of instructions are used to define the “add” method. Essentially the instructions put the method name on the stack, and then calls “define_method” a C function that is used by YARV to create a new ruby method. In the second block, a local table is defined which represent the arguments our function can accept.
 
 ## Conclusion
 
-In this post we explored how ruby translates the text of a program, first into tokens, then into a structure called an AST, and finally into intstructions usable by the virtual machine. These three passes are what allow ruby to be interpreted by the virtual machine. Hopefully after reading this post you will have a little bit better understanding about what exactly happens when you boot up a ruby process.
+In this post we explored how ruby translates the text of a program, first into tokens, then into a structure called an AST, and finally into instructions usable by the virtual machine. These three passes are what allow ruby to be interpreted by the virtual machine. Hopefully after reading this post you will have a little bit better understanding about what exactly happens when you boot up a ruby process.

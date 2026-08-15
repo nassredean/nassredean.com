@@ -27,7 +27,7 @@ As you can see, Fir is smart enough to dedent the rescue keyword as soon as you 
 
 ## Implementing as you type updates with raw input
 
-In order to achieve the functionality described above inside our command line programs, we need to leverage “raw” terminal drivers. Terminals and REPLs usually use “cooked”, or canonical, input. With cooked input characters are buffered internally until a carriage return is inputted to the program, at which point the line is processed. Cooked functionality is actually what allows for certain characters to be treated as special, e.g. control sequences or backspace. It is on this system that programs usually base their line editing. If instead we want to manually handle characters as the program receives them, and also prevent them from being echoed to the screen, than we need to force the terminal to use a raw driver. In Ruby we can force stdin or stdout into raw mode as follows:
+In order to achieve the functionality described above inside our command line programs, we need to leverage “raw” terminal drivers. Terminals and REPLs usually use “cooked”, or canonical, input. With cooked input characters are buffered internally until a carriage return is inputted to the program, at which point the line is processed. Cooked functionality is actually what allows for certain characters to be treated as special, e.g. control sequences or backspace. It is on this system that programs usually base their line editing. If instead we want to manually handle characters as the program receives them, and also prevent them from being echoed to the screen, then we need to force the terminal to use a raw driver. In Ruby we can force stdin or stdout into raw mode as follows:
 
 ```ruby
 while true
@@ -38,7 +38,7 @@ end
 ```
 
 
-If you run the above program and start typing, you will see nothing happens on the screen, and thats good! The program is fetching the raw characters, and preventing their default behavior, which in this case, is rendering them to the screen. This is essentially what Fir is based on, fetching raw input, processing it, and then manually drawing to the screen using [ANSI escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code) to do things like erase or move the cursor. It also means that we can handle the characters as we receive them, instead of waiting for a carriage return.
+If you run the above program and start typing, you will see nothing happens on the screen, and that’s good! The program is fetching the raw characters, and preventing their default behavior, which in this case, is rendering them to the screen. This is essentially what Fir is based on, fetching raw input, processing it, and then manually drawing to the screen using [ANSI escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code) to do things like erase or move the cursor. It also means that we can handle the characters as we receive them, instead of waiting for a carriage return.
 
 Now as I mentioned before, you may have noticed that trying to ctrl-d or exit the program using the standard process control characters did not work. Sorry about that! You see one of the downsides of raw terminal drivers is that you have to manually handle everything. In this case, those standard process control characters are doing nothing to end the program, so you are going to have to send that runaway Ruby process a kill signal ;).
 
@@ -49,7 +49,7 @@ Certain keys, such as the arrow keys, are prefixed by an “escape” sequence. 
 ```ruby
 while true
   $stdin.raw do |raw_input|
-    $stdin.puts “CHARACTER:”: raw_input.getc.inspect
+    $stdout.puts "CHARACTER: #{raw_input.getc.inspect}"
   end
 end
 ```
@@ -57,20 +57,20 @@ end
 Run the program and then hit the left arrow key, and you should see something like this:
 
 ```
-$ ruby raw_mode_example.rb 
-CHARACTER: “\e”
- CHARACTER: “[“
- CHARACTER: “D”
+$ ruby raw_mode_example.rb
+CHARACTER: "\e"
+CHARACTER: "["
+CHARACTER: "D"
 ```
 
 What happened here? Well if we read the [documentation for getc](https://ruby-doc.org/core-2.3.0/IO.html#method-i-getc) we see that getc “Reads a one-character string from ios”, and this is not a one character string! This posed a substantial challenge for Fir, since the left arrow was broken down into its component characters, my program behaved as if the user had just hit escape, and then left bracket, and then d. Not what we want.
 
-I stumbled into a solution [here](https://www.alecjacobson.com/weblog/?p=75). The solution is to spawn an additional thread when the program detects an escape key where we call getc on the input twice, and then kill the thread very quickly. If the the escape was the beginning of the long character sequence, as in the case of left arrow, we are able to trap it, and if not the thread is killed and the program isn’t blocked waiting for more input. Here’s what that solution looks like inside the Fir key class.
+I stumbled into a solution [here](https://www.alecjacobson.com/weblog/?p=75). The solution is to spawn an additional thread when the program detects an escape key where we call getc on the input twice, and then kill the thread very quickly. If the escape was the beginning of the long character sequence, as in the case of left arrow, we are able to trap it, and if not the thread is killed and the program isn’t blocked waiting for more input. Here’s what that solution looks like inside the Fir key class.
 
 ```ruby
 input.raw do |raw_input|
   key = raw_input.sysread(1).chr
-  if key == “\e”
+  if key == "\e"
     skt = Thread.new { 2.times { key += raw_input.sysread(1).chr } }
     skt.join(0.0001)
     skt.kill
