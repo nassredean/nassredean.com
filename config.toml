@@ -1,6 +1,5 @@
 baseURL = "https://www.nassredean.com/"
 title = "Nassredean Nasseri"
-author = "Nassredean Nasseri"
 copyright = "Copyright © 2023, Nassredean Nasseri; all rights reserved."
 languageCode = "en-us"
 DefaultContentLanguage = "en-us"
@@ -16,6 +15,9 @@ rssLimit = 20
 
 [params]
   copyright = "© Nassredean Nasseri"
+
+  [params.author]
+    name = "Nassredean Nasseri"
 
   [params.logo]
     name = "nassredean"
